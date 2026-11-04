@@ -247,17 +247,34 @@ async function checkAuth() {
   return false;
 }
 
+async function performLogout(redirectTo = '/login') {
+  try {
+    await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+  } catch (e) {}
+  localStorage.removeItem('admin_token');
+  document.cookie = 'session=; Path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax';
+  window.location.href = redirectTo;
+}
+
 function initLogout() {
+  // Sign Out button -> redirect to /login
   const btn = document.getElementById('logout-btn');
   if (btn) {
-    btn.addEventListener('click', async () => {
-      try {
-        await fetch('/api/auth/logout', { method: 'POST' });
-      } catch (e) {}
-      localStorage.removeItem('admin_token');
-      window.location.href = '/login';
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      performLogout('/login');
     });
   }
+
+  // Live site and Home page buttons -> auto-logout and redirect to home (/)
+  const liveLinks = document.querySelectorAll('a[href="/"], .live-site-link');
+  liveLinks.forEach(link => {
+    link.removeAttribute('target');
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      performLogout('/');
+    });
+  });
 }
 
 // -------------------------------------------------------------------
