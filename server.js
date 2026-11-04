@@ -261,7 +261,10 @@ const server = http.createServer(async (req, res) => {
         return sendJson(res, 400, { error: 'Invalid JSON body' });
       }
 
-      const updated = db.updateSettings(body);
+      let updated = body;
+      if (db && typeof db.updateSettings === 'function') {
+        updated = db.updateSettings(body);
+      }
       return sendJson(res, 200, { success: true, settings: updated });
     }
 
@@ -324,15 +327,32 @@ const server = http.createServer(async (req, res) => {
       const savedFileName = `${safePrefix}-${uniqueSuffix}${fileExt}`;
       const savedFilePath = path.join(UPLOADS_DIR, savedFileName);
 
-      fs.writeFileSync(savedFilePath, file.data);
+      let fileUrl;
+      try {
+        if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+        fs.writeFileSync(savedFilePath, file.data);
+        fileUrl = `/uploads/${savedFileName}`;
+      } catch (writeErr) {
+        // Read-only serverless environment (e.g. Vercel) -> Convert to Base64 Data URI
+        const mime = file.contentType || (fileExt === '.png' ? 'image/png' : fileExt === '.jpg' || fileExt === '.jpeg' ? 'image/jpeg' : fileExt === '.pdf' ? 'application/pdf' : 'application/octet-stream');
+        fileUrl = `data:${mime};base64,${file.data.toString('base64')}`;
 
-      const fileUrl = `/uploads/${savedFileName}`;
+        // Also try saving to /tmp for downloads if available
+        try {
+          const tmpUploadPath = path.join('/tmp', savedFileName);
+          fs.writeFileSync(tmpUploadPath, file.data);
+        } catch (e) {}
+      }
 
       // If upload was specifically for avatar or resume, update settings automatically
       if (parsed.fields.type === 'avatar') {
-        db.updateSettings({ avatarUrl: fileUrl });
+        if (db && typeof db.updateSettings === 'function') {
+          db.updateSettings({ avatarUrl: fileUrl });
+        }
       } else if (parsed.fields.type === 'resume') {
-        db.updateSettings({ resumeUrl: fileUrl });
+        if (db && typeof db.updateSettings === 'function') {
+          db.updateSettings({ resumeUrl: fileUrl });
+        }
       }
 
       return sendJson(res, 200, {

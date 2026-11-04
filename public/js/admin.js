@@ -174,14 +174,42 @@ function handleClientFallback(url, options) {
 
   // Handle Upload
   if (url === '/api/admin/upload') {
-    return {
-      ok: true,
-      status: 200,
-      json: async () => ({
-        success: true,
-        url: '/uploads/avatar.jpg'
-      })
-    };
+    return new Promise((resolve) => {
+      const file = options.body instanceof FormData ? options.body.get('file') : null;
+      const type = options.body instanceof FormData ? (options.body.get('type') || 'file') : 'file';
+      if (file && typeof FileReader !== 'undefined') {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const dataUrl = reader.result;
+          if (type === 'avatar') {
+            adminState.settings = { ...(adminState.settings || {}), avatarUrl: dataUrl };
+            localStorage.setItem('portfolio_settings', JSON.stringify(adminState.settings));
+          } else if (type === 'resume') {
+            adminState.settings = { ...(adminState.settings || {}), resumeUrl: dataUrl };
+            localStorage.setItem('portfolio_settings', JSON.stringify(adminState.settings));
+          }
+          resolve({
+            ok: true,
+            status: 200,
+            json: async () => ({
+              success: true,
+              url: dataUrl,
+              filename: file.name
+            })
+          });
+        };
+        reader.onerror = () => {
+          resolve({ ok: true, status: 200, json: async () => ({ success: true, url: '/uploads/avatar.jpg' }) });
+        };
+        reader.readAsDataURL(file);
+      } else {
+        resolve({
+          ok: true,
+          status: 200,
+          json: async () => ({ success: true, url: '/uploads/avatar.jpg' })
+        });
+      }
+    });
   }
 
   return { ok: true, status: 200, json: async () => ({ success: true }) };
@@ -536,10 +564,14 @@ async function uploadFile(file, type) {
       if (preview) preview.src = data.url;
       const sbAvatar = document.getElementById('sidebar-avatar');
       if (sbAvatar) sbAvatar.src = data.url;
+      adminState.settings = { ...(adminState.settings || {}), avatarUrl: data.url };
+      localStorage.setItem('portfolio_settings', JSON.stringify(adminState.settings));
       showToast('Avatar photo updated successfully!', 'success');
     } else if (type === 'resume') {
       const filenameLabel = document.getElementById('resume-current-filename');
       if (filenameLabel) filenameLabel.textContent = file.name;
+      adminState.settings = { ...(adminState.settings || {}), resumeUrl: data.url };
+      localStorage.setItem('portfolio_settings', JSON.stringify(adminState.settings));
       showToast('Resume PDF uploaded successfully!', 'success');
     }
 
