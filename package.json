@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-cms",
+  "version": "1.0.0",
+  "description": "Personal Portfolio Website with Built-in Admin Content Management System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": ["portfolio", "cms", "admin", "fullstack", "sqlite"],
+  "author": "Dipesh Bista",
+  "license": "MIT"
+}

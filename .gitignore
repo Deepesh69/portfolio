@@ -1,0 +1,11 @@
+# Local Database (Local Admin CMS writes here)
+portfolio.db
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node dependencies (if any added in future)
+node_modules/
+npm-debug.log

@@ -1,0 +1,211 @@
+{
+  "settings": {
+    "id": 1,
+    "fullName": "Dipesh Bista",
+    "title": "MSc IT Student & Technical Support Specialist",
+    "headline": "Delivering dependable IT solutions, troubleshooting enterprise systems, and bridging technology with business.",
+    "bio": "Reliable, detail-oriented IT professional with a solid foundation in Computer Applications and currently pursuing a Master of Science in Information Technology at the University of the West of Scotland. Experienced in technical support, accounting software troubleshooting, system diagnostics, and customer relationship building. Proven ability to work effectively in fast-paced environments and collaborate with development teams to solve complex technical problems.",
+    "avatarUrl": "/uploads/avatar.jpg",
+    "resumeUrl": "/uploads/resume.pdf",
+    "email": "dipeshbista2009@gmail.com",
+    "phone": "+44 7918982511",
+    "location": "Glasgow, Scotland, UK",
+    "availability": "Available for part-time work (up to 20 hours per week) during term time",
+    "linkedinUrl": "https://linkedin.com/in/dipesh-bista-28b67619a",
+    "githubUrl": "https://github.com",
+    "websiteUrl": "",
+    "accentColor": "#4f46e5",
+    "siteTitle": "Dipesh Bista | IT Specialist & MSc Candidate",
+    "metaDescription": "Professional portfolio of Dipesh Bista - MSc in IT student, Technical Support Specialist, and IT Solutions Professional based in Glasgow.",
+    "adminUsername": "admin",
+    "updated_at": "2026-11-04 00:50:48"
+  },
+  "skills": [
+    {
+      "id": 1,
+      "name": "Accounting & Financial Software",
+      "category": "Technical Skills",
+      "proficiency": 95,
+      "icon": "calculator",
+      "displayOrder": 0
+    },
+    {
+      "id": 2,
+      "name": "MS Excel (Advanced, Formulas, Pivot)",
+      "category": "Technical Skills",
+      "proficiency": 92,
+      "icon": "table",
+      "displayOrder": 1
+    },
+    {
+      "id": 3,
+      "name": "IT Helpdesk & System Troubleshooting",
+      "category": "Technical Skills",
+      "proficiency": 90,
+      "icon": "wrench",
+      "displayOrder": 2
+    },
+    {
+      "id": 4,
+      "name": "Data Entry, Audit & Reporting",
+      "category": "Technical Skills",
+      "proficiency": 88,
+      "icon": "file-text",
+      "displayOrder": 3
+    },
+    {
+      "id": 5,
+      "name": "Database & Records Administration",
+      "category": "Technical Skills",
+      "proficiency": 85,
+      "icon": "database",
+      "displayOrder": 4
+    },
+    {
+      "id": 6,
+      "name": "Hardware & OS Configuration",
+      "category": "Technical Skills",
+      "proficiency": 80,
+      "icon": "cpu",
+      "displayOrder": 5
+    },
+    {
+      "id": 7,
+      "name": "Customer Service & User Training",
+      "category": "Core Competencies",
+      "proficiency": 95,
+      "icon": "users",
+      "displayOrder": 6
+    },
+    {
+      "id": 8,
+      "name": "Communication & Relationship Building",
+      "category": "Core Competencies",
+      "proficiency": 92,
+      "icon": "message-circle",
+      "displayOrder": 7
+    },
+    {
+      "id": 9,
+      "name": "Time Management & Meeting Deadlines",
+      "category": "Core Competencies",
+      "proficiency": 94,
+      "icon": "clock",
+      "displayOrder": 8
+    },
+    {
+      "id": 10,
+      "name": "Cross-functional Collaboration (R&D)",
+      "category": "Core Competencies",
+      "proficiency": 90,
+      "icon": "git-merge",
+      "displayOrder": 9
+    },
+    {
+      "id": 11,
+      "name": "Problem Diagnostics & Root Cause Analysis",
+      "category": "Core Competencies",
+      "proficiency": 88,
+      "icon": "search",
+      "displayOrder": 10
+    }
+  ],
+  "experiences": [
+    {
+      "id": 1,
+      "type": "education",
+      "role": "Master of Science in Information Technology",
+      "organization": "University of the West of Scotland (UWS)",
+      "location": "Glasgow, United Kingdom",
+      "startDate": "2025",
+      "endDate": "Present",
+      "description": "Postgraduate studies focusing on enterprise information systems, cloud infrastructure, network architectures, advanced software technologies, and data management.",
+      "displayOrder": 0
+    },
+    {
+      "id": 2,
+      "type": "education",
+      "role": "Bachelor in Computer Application (BCA)",
+      "organization": "Times International College",
+      "location": "Kathmandu, Nepal",
+      "startDate": "2020",
+      "endDate": "2025",
+      "description": "Comprehensive study of computing paradigms, software engineering, database management systems, web development, data structures, and computer networking.",
+      "displayOrder": 1
+    },
+    {
+      "id": 3,
+      "type": "work",
+      "role": "Customer & Technical Support Specialist",
+      "organization": "Sagar International Computech Pvt. Ltd.",
+      "location": "Kathmandu, Nepal",
+      "startDate": "Jan 2021",
+      "endDate": "Nov 2025",
+      "description": "• Diagnosed and resolved software, database, and operational issues for accounting and business software users.\n• Conducted interactive training sessions on accounting software for client teams and internal staff.\n• Coordinated closely with the Resource and Development (R&D) team to report system bugs and deploy updates.\n• Maintained detailed customer documentation and financial system records with 100% compliance.",
+      "displayOrder": 2
+    },
+    {
+      "id": 4,
+      "type": "work",
+      "role": "Accountant",
+      "organization": "Mahabharat Metals Pvt Ltd.",
+      "location": "Nepal",
+      "startDate": "Oct 2019",
+      "endDate": "Jun 2020",
+      "description": "• Managed daily ledger accounts, supplier invoices, and core financial records.\n• Performed inventory costing, stock reconciliations, and vendor statement matching.\n• Supported internal and external audits with comprehensive variance reports.",
+      "displayOrder": 3
+    },
+    {
+      "id": 5,
+      "type": "work",
+      "role": "Junior Accountant",
+      "organization": "Greenline Tours Pvt. Ltd.",
+      "location": "Nepal",
+      "startDate": "Nov 2018",
+      "endDate": "Sep 2019",
+      "description": "• Handled accounts payable and accounts receivable cycles with high accuracy.\n• Prepared periodic trial balances, invoice generation, and customer payment tracking.\n• Assisted senior accountants in month-end financial closing and tax compliance preparation.",
+      "displayOrder": 4
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "Accounting & Inventory Management Suite",
+      "category": "Enterprise Software",
+      "description": "A complete desktop/web accounting platform designed for small-to-medium businesses. Features automated ledger updates, multi-warehouse inventory tracking, VAT/tax calculation, and one-click PDF invoices.",
+      "tags": "Accounting Software, SQL, Data Reporting, Automation",
+      "imageUrl": "",
+      "demoUrl": "#",
+      "githubUrl": "#",
+      "featured": 1,
+      "displayOrder": 0,
+      "created_at": "2026-11-04 00:50:48"
+    },
+    {
+      "id": 2,
+      "title": "IT Helpdesk & Ticketing Knowledgebase",
+      "category": "IT Support & Systems",
+      "description": "Internal IT ticketing system allowing support staff to categorize incidents, track resolution times, generate step-by-step diagnostic workflows, and coordinate with software developers.",
+      "tags": "IT Support, Troubleshooting, Knowledge Management, Web Systems",
+      "imageUrl": "",
+      "demoUrl": "#",
+      "githubUrl": "#",
+      "featured": 1,
+      "displayOrder": 1,
+      "created_at": "2026-11-04 00:50:48"
+    },
+    {
+      "id": 3,
+      "title": "Automated Financial Statement & Audit Reconciliation",
+      "category": "FinTech & Analytics",
+      "description": "Automated data processing tool built to parse bank statements, cross-reference purchase orders against invoices, flag reconciliation discrepancies, and output auditor-ready Excel reports.",
+      "tags": "MS Excel Advanced, Financial Analytics, Audit Support, Data Processing",
+      "imageUrl": "",
+      "demoUrl": "#",
+      "githubUrl": "#",
+      "featured": 1,
+      "displayOrder": 2,
+      "created_at": "2026-11-04 00:50:48"
+    }
+  ]
+}
