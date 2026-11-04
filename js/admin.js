@@ -368,7 +368,7 @@ async function loadDashboard() {
   try {
     let data = null;
     try {
-      const res = await fetch('/api/admin/dashboard');
+      const res = await apiFetch('/api/admin/dashboard');
       if (res.ok) data = await res.json();
     } catch (e) {}
 
@@ -381,8 +381,8 @@ async function loadDashboard() {
             totalViews: 1,
             totalMessages: 0,
             unreadMessages: 0,
-            totalProjects: (pData.projects || []).length,
-            totalSkills: (pData.skills || []).length
+            totalProjects: (adminState.projects || pData.projects || []).length,
+            totalSkills: (adminState.skills || pData.skills || []).length
           },
           recentMessages: [],
           settings: pData.settings
@@ -390,6 +390,15 @@ async function loadDashboard() {
       }
     }
     if (!data) return;
+
+    // Merge any locally saved settings
+    const localSettings = localStorage.getItem('portfolio_settings');
+    if (localSettings) {
+      try {
+        data.settings = { ...(data.settings || {}), ...JSON.parse(localSettings) };
+      } catch (e) {}
+    }
+
     adminState.stats = data.stats;
     adminState.settings = data.settings;
 
@@ -603,11 +612,22 @@ async function uploadFile(file, type) {
 async function loadProjects() {
   try {
     let projects = null;
-    try {
-      const res = await fetch('/api/admin/projects');
-      if (res.ok) projects = await res.json();
-    } catch (e) {}
 
+    // 1. Check localStorage first
+    const localProj = localStorage.getItem('portfolio_projects');
+    if (localProj) {
+      try { projects = JSON.parse(localProj); } catch (e) {}
+    }
+
+    // 2. Try API
+    if (!projects) {
+      try {
+        const res = await apiFetch('/api/admin/projects');
+        if (res.ok) projects = await res.json();
+      } catch (e) {}
+    }
+
+    // 3. Fallback to portfolio.json
     if (!projects) {
       const pRes = await fetch('/data/portfolio.json');
       if (pRes.ok) {
@@ -716,6 +736,15 @@ function initProjectHandlers() {
 
         if (!res.ok) throw new Error('Failed to save project');
 
+        // Immediately update state & localStorage
+        if (!id) {
+          const newProj = { id: Date.now(), ...payload };
+          adminState.projects = [newProj, ...(adminState.projects || [])];
+        } else {
+          adminState.projects = (adminState.projects || []).map(p => p.id == id ? { ...p, ...payload } : p);
+        }
+        localStorage.setItem('portfolio_projects', JSON.stringify(adminState.projects));
+
         closeModal('project-modal');
         showToast(id ? 'Project updated!' : 'Project added!', 'success');
         await loadProjects();
@@ -764,7 +793,8 @@ async function deleteProject(id) {
   if (!confirm('Are you sure you want to delete this project?')) return;
   try {
     const res = await apiFetch(`/api/admin/projects/${id}`, { method: 'DELETE' });
-    if (!res.ok) throw new Error('Failed to delete');
+    adminState.projects = (adminState.projects || []).filter(p => p.id != id);
+    localStorage.setItem('portfolio_projects', JSON.stringify(adminState.projects));
     showToast('Project deleted', 'success');
     await loadProjects();
     await loadDashboard();
@@ -779,11 +809,22 @@ async function deleteProject(id) {
 async function loadExperiences() {
   try {
     let list = null;
-    try {
-      const res = await fetch('/api/admin/experiences');
-      if (res.ok) list = await res.json();
-    } catch (e) {}
 
+    // 1. Check localStorage first
+    const localExp = localStorage.getItem('portfolio_experiences');
+    if (localExp) {
+      try { list = JSON.parse(localExp); } catch (e) {}
+    }
+
+    // 2. Try API
+    if (!list) {
+      try {
+        const res = await apiFetch('/api/admin/experiences');
+        if (res.ok) list = await res.json();
+      } catch (e) {}
+    }
+
+    // 3. Fallback to portfolio.json
     if (!list) {
       const pRes = await fetch('/data/portfolio.json');
       if (pRes.ok) {
@@ -895,7 +936,8 @@ async function deleteExperience(id) {
   if (!confirm('Are you sure you want to remove this entry?')) return;
   try {
     const res = await apiFetch(`/api/admin/experiences/${id}`, { method: 'DELETE' });
-    if (!res.ok) throw new Error('Failed to delete');
+    adminState.experiences = (adminState.experiences || []).filter(e => e.id != id);
+    localStorage.setItem('portfolio_experiences', JSON.stringify(adminState.experiences));
     showToast('Entry removed', 'success');
     await loadExperiences();
   } catch (err) {
@@ -909,11 +951,22 @@ async function deleteExperience(id) {
 async function loadSkills() {
   try {
     let skills = null;
-    try {
-      const res = await fetch('/api/admin/skills');
-      if (res.ok) skills = await res.json();
-    } catch (e) {}
 
+    // 1. Check localStorage first
+    const localSkills = localStorage.getItem('portfolio_skills');
+    if (localSkills) {
+      try { skills = JSON.parse(localSkills); } catch (e) {}
+    }
+
+    // 2. Try API
+    if (!skills) {
+      try {
+        const res = await apiFetch('/api/admin/skills');
+        if (res.ok) skills = await res.json();
+      } catch (e) {}
+    }
+
+    // 3. Fallback to portfolio.json
     if (!skills) {
       const pRes = await fetch('/data/portfolio.json');
       if (pRes.ok) {
@@ -997,6 +1050,15 @@ function initSkillHandlers() {
 
         if (!res.ok) throw new Error('Failed to save skill');
 
+        // Immediately update state & localStorage
+        if (!id) {
+          const newSkill = { id: Date.now(), ...payload };
+          adminState.skills = [...(adminState.skills || []), newSkill];
+        } else {
+          adminState.skills = (adminState.skills || []).map(s => s.id == id ? { ...s, ...payload } : s);
+        }
+        localStorage.setItem('portfolio_skills', JSON.stringify(adminState.skills));
+
         closeModal('skill-modal');
         showToast(id ? 'Skill updated!' : 'Skill added!', 'success');
         await loadSkills();
@@ -1036,7 +1098,8 @@ async function deleteSkill(id) {
   if (!confirm('Are you sure you want to remove this skill?')) return;
   try {
     const res = await apiFetch(`/api/admin/skills/${id}`, { method: 'DELETE' });
-    if (!res.ok) throw new Error('Failed to delete');
+    adminState.skills = (adminState.skills || []).filter(s => s.id != id);
+    localStorage.setItem('portfolio_skills', JSON.stringify(adminState.skills));
     showToast('Skill removed', 'success');
     await loadSkills();
     await loadDashboard();
