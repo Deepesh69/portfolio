@@ -69,6 +69,26 @@ async function fetchPortfolioData() {
       data = await staticRes.json();
     }
 
+    // Merge client-side saved modifications (for Vercel / browser admin edits)
+    try {
+      const localSettings = localStorage.getItem('portfolio_settings');
+      if (localSettings) {
+        data.settings = { ...data.settings, ...JSON.parse(localSettings) };
+      }
+      const localProjects = localStorage.getItem('portfolio_projects');
+      if (localProjects) {
+        data.projects = JSON.parse(localProjects);
+      }
+      const localSkills = localStorage.getItem('portfolio_skills');
+      if (localSkills) {
+        data.skills = JSON.parse(localSkills);
+      }
+      const localExperiences = localStorage.getItem('portfolio_experiences');
+      if (localExperiences) {
+        data.experiences = JSON.parse(localExperiences);
+      }
+    } catch (e) {}
+
     portfolioState = data;
 
     renderSettings(data.settings);

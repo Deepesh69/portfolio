@@ -85,6 +85,12 @@ function initDb() {
       ip TEXT,
       timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS sessions (
+      token TEXT PRIMARY KEY,
+      userId INTEGER DEFAULT 1,
+      expiresAt INTEGER
+    );
   `);
 
   // Check if settings table has row 1; if not, seed default data
@@ -484,5 +490,15 @@ module.exports = {
       totalProjects,
       totalSkills
     };
+  },
+  // Sessions
+  saveSession: (token, userId = 1, expiresAt) => {
+    db.prepare('INSERT OR REPLACE INTO sessions (token, userId, expiresAt) VALUES (?, ?, ?)').run(token, userId, expiresAt);
+  },
+  findSession: (token) => {
+    return db.prepare('SELECT * FROM sessions WHERE token = ?').get(token);
+  },
+  removeSession: (token) => {
+    db.prepare('DELETE FROM sessions WHERE token = ?').run(token);
   }
 };
