@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Dipesh Bista | IT Specialist & MSc Candidate</title>
+  <meta name="description" id="meta-description" content="Professional portfolio of Dipesh Bista - MSc in IT, Technical Support Specialist, and IT Solutions Professional based in Glasgow.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>">
+</head>
+<body class="dark-theme">
+
+  <!-- Navigation Bar -->
+  <header class="navbar-wrapper">
+    <nav class="navbar container">
+      <a href="#hero" class="brand">
+        <div class="brand-avatar-mini" id="nav-avatar-wrap">
+          <img src="/uploads/avatar.jpg" alt="Avatar" id="nav-avatar" onerror="this.src='https://ui-avatars.com/api/?name=Dipesh+Bista&background=6366f1&color=fff'">
+        </div>
+        <span class="brand-name" id="nav-name">Dipesh Bista</span>
+      </a>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button id="theme-toggle" class="btn-icon" title="Toggle Theme" aria-label="Toggle Theme">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+        </button>
+
+        <!-- Download CV Button -->
+        <a href="/uploads/resume.pdf" target="_blank" download="Dipesh_Bista_Resume.pdf" id="nav-resume-btn" class="btn btn-outline btn-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Resume</span>
+        </a>
+
+        <!-- Admin Access Button -->
+        <a href="/admin" class="btn btn-primary btn-sm admin-btn" title="Admin Portal">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V18a1 1 0 0 1-2 0v-1.07A7 7 0 0 1 5.07 11H6a1 1 0 0 1 0-2h-.93A7 7 0 0 1 11 5.07V6a1 1 0 0 1 2 0v-.93A7 7 0 0 1 18.93 11H18a1 1 0 0 1 0 2h.93A7 7 0 0 1 13 16.93z"></path></svg>
+          <span>Admin</span>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="btn-icon mobile-only" aria-label="Open Menu">
+          <span>☰</span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="badge-wrapper">
+            <span class="status-indicator"></span>
+            <span class="badge-text" id="hero-availability">Available for part-time work (up to 20 hrs/week)</span>
+          </div>
+
+          <h1 class="hero-title">
+            Hi, I'm <span class="gradient-text" id="hero-name">Dipesh Bista</span>
+          </h1>
+
+          <h2 class="hero-subtitle" id="hero-title-text">
+            MSc IT Student & Technical Support Specialist
+          </h2>
+
+          <p class="hero-description" id="hero-headline">
+            Delivering dependable IT solutions, troubleshooting enterprise accounting systems, and bridging technology with business.
+          </p>
+
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary btn-lg">
+              <span>Get in Touch</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="#projects" class="btn btn-secondary btn-lg">
+              <span>Explore Projects</span>
+            </a>
+            <a href="/uploads/resume.pdf" target="_blank" download="Dipesh_Bista_Resume.pdf" id="hero-resume-btn" class="btn btn-outline btn-lg">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Download CV</span>
+            </a>
+          </div>
+
+          <!-- Social Quick Links -->
+          <div class="hero-socials">
+            <span class="social-label">Connect:</span>
+            <a href="https://linkedin.com/in/dipesh-bista-28b67619a" target="_blank" id="hero-linkedin" class="social-pill" title="LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              <span>LinkedIn</span>
+            </a>
+            <a href="mailto:dipeshbista2009@gmail.com" id="hero-email-link" class="social-pill" title="Email">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              <span>Email</span>
+            </a>
+            <a href="tel:+447918982511" id="hero-phone-link" class="social-pill" title="Phone">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <span>Call</span>
+            </a>
+            <span class="location-badge" id="hero-location">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Glasgow, UK</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- Hero Avatar Column -->
+        <div class="hero-visual">
+          <div class="avatar-card">
+            <div class="avatar-glow"></div>
+            <div class="avatar-frame">
+              <img src="/uploads/avatar.jpg" alt="Dipesh Bista" id="hero-avatar" class="avatar-img" onerror="this.src='https://ui-avatars.com/api/?name=Dipesh+Bista&size=400&background=6366f1&color=fff'">
+            </div>
+            <div class="avatar-floating-badge badge-top">
+              <span class="badge-icon">🎓</span>
+              <div>
+                <strong class="badge-title">MSc in IT</strong>
+                <span class="badge-sub">Univ of West of Scotland</span>
+              </div>
+            </div>
+            <div class="avatar-floating-badge badge-bottom">
+              <span class="badge-icon">⚡</span>
+              <div>
+                <strong class="badge-title">5+ Years</strong>
+                <span class="badge-sub">Tech & Accounts Experience</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Highlights / Stat Bar -->
+    <section class="stat-banner">
+      <div class="container stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">MSc & BCA</div>
+          <div class="stat-label">Academic Degrees</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Commitment to Quality</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">Glasgow</div>
+          <div class="stat-label">Current Location</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Profile</span>
+          <h2 class="section-title">About Me</h2>
+          <p class="section-desc">Get to know more about my background, technical expertise, and career journey.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text-card">
+            <h3 class="about-heading">Problem Solver & Tech-Driven Professional</h3>
+            <p id="about-bio" class="about-paragraph">
+              Reliable, detail-oriented IT professional with a solid foundation in Computer Applications and currently pursuing a Master of Science in Information Technology at the University of the West of Scotland. Experienced in technical support, accounting software troubleshooting, system diagnostics, and customer relationship building.
+            </p>
+            <div class="about-highlights-list">
+              <div class="highlight-item">
+                <div class="highlight-icon">🛠️</div>
+                <div>
+                  <strong>Software Diagnostics & Support</strong>
+                  <p>In-depth expertise resolving complex bugs in accounting and ERP applications.</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-icon">🤝</div>
+                <div>
+                  <strong>Customer & Team Collaboration</strong>
+                  <p>Bridging the gap between non-technical end-users and engineering R&D teams.</p>
+                </div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-icon">📊</div>
+                <div>
+                  <strong>Data Integrity & Financial Systems</strong>
+                  <p>Hands-on proficiency in ledger systems, reconciliation, audits, and reporting.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Info Cards Grid -->
+          <div class="about-info-cards">
+            <div class="info-card">
+              <span class="info-card-icon">📍</span>
+              <span class="info-card-label">Location</span>
+              <span class="info-card-val" id="about-location">Glasgow, Scotland, UK</span>
+            </div>
+            <div class="info-card">
+              <span class="info-card-icon">✉️</span>
+              <span class="info-card-label">Email</span>
+              <span class="info-card-val" id="about-email">dipeshbista2009@gmail.com</span>
+            </div>
+            <div class="info-card">
+              <span class="info-card-icon">📞</span>
+              <span class="info-card-label">Phone</span>
+              <span class="info-card-val" id="about-phone">+44 7918982511</span>
+            </div>
+            <div class="info-card">
+              <span class="info-card-icon">💼</span>
+              <span class="info-card-label">Work Status</span>
+              <span class="info-card-val" id="about-availability">Available for part-time (up to 20h/wk)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience & Education Section -->
+    <section id="experience" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Career History</span>
+          <h2 class="section-title">Experience & Education</h2>
+          <p class="section-desc">My professional trajectory in technical support, accounting, and higher education.</p>
+        </div>
+
+        <!-- Filter Segment -->
+        <div class="timeline-tabs">
+          <button class="timeline-tab active" data-filter="all">All Journey</button>
+          <button class="timeline-tab" data-filter="work">Work Experience</button>
+          <button class="timeline-tab" data-filter="education">Academic History</button>
+        </div>
+
+        <div class="timeline" id="experience-timeline">
+          <!-- Dynamic cards injected via portfolio.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Capabilities</span>
+          <h2 class="section-title">Core Skills & Competencies</h2>
+          <p class="section-desc">Specialized tools, platforms, and professional competencies I leverage daily.</p>
+        </div>
+
+        <div class="skills-categories-wrapper" id="skills-container">
+          <!-- Dynamic skill groups injected via portfolio.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Portfolio</span>
+          <h2 class="section-title">Featured Projects & Systems</h2>
+          <p class="section-desc">Selected projects highlighting system implementation, automation, and software engineering.</p>
+        </div>
+
+        <!-- Project Filter Buttons -->
+        <div class="project-filters" id="project-filters">
+          <button class="filter-btn active" data-category="all">All</button>
+          <!-- Dynamic category pills -->
+        </div>
+
+        <div class="projects-grid" id="projects-grid">
+          <!-- Dynamic project cards injected via portfolio.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Get in Touch</span>
+          <h2 class="section-title">Let's Connect</h2>
+          <p class="section-desc">Feel free to reach out for opportunities, collaborations, or inquiries.</p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Contact Details Card -->
+          <div class="contact-card-info">
+            <h3>Contact Information</h3>
+            <p>I am actively seeking part-time IT roles, technical support positions, or graduate opportunities in Glasgow and across the UK.</p>
+
+            <div class="contact-info-list">
+              <a href="mailto:dipeshbista2009@gmail.com" class="contact-info-item" id="contact-email-card">
+                <div class="contact-icon">✉️</div>
+                <div>
+                  <small>Email</small>
+                  <strong id="contact-email">dipeshbista2009@gmail.com</strong>
+                </div>
+              </a>
+
+              <a href="tel:+447918982511" class="contact-info-item" id="contact-phone-card">
+                <div class="contact-icon">📞</div>
+                <div>
+                  <small>Phone</small>
+                  <strong id="contact-phone">+44 7918982511</strong>
+                </div>
+              </a>
+
+              <div class="contact-info-item">
+                <div class="contact-icon">📍</div>
+                <div>
+                  <small>Location</small>
+                  <strong id="contact-location">Glasgow, Scotland, UK</strong>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <div class="contact-icon">🔗</div>
+                <div>
+                  <small>LinkedIn</small>
+                  <strong id="contact-linkedin-text">dipesh-bista-28b67619a</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Download Button in Contact -->
+            <div style="margin-top: 1.5rem;">
+              <a href="/uploads/resume.pdf" target="_blank" download="Dipesh_Bista_Resume.pdf" class="btn btn-outline" style="width: 100%; justify-content: center;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Download Full CV (PDF)</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Interactive Contact Form -->
+          <div class="contact-card-form">
+            <form id="contact-form" class="form">
+              <div id="form-alert" class="form-alert hidden"></div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Your Name <span class="required">*</span></label>
+                  <input type="text" id="name" name="name" required placeholder="e.g. Alex Johnson" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="email">Your Email <span class="required">*</span></label>
+                  <input type="email" id="email" name="email" required placeholder="e.g. alex@example.com" class="form-control">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="e.g. Job Opportunity / Project Discussion" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label for="message">Your Message <span class="required">*</span></label>
+                <textarea id="message" name="message" rows="5" required placeholder="Hello Dipesh, I would like to discuss..." class="form-control"></textarea>
+              </div>
+
+              <button type="submit" id="submit-btn" class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;">
+                <span id="btn-text">Send Message</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <strong id="footer-name">Dipesh Bista</strong>
+        <p>Master of Science in Information Technology | IT Specialist</p>
+      </div>
+      <div class="footer-center">
+        <p>&copy; <span id="current-year">2026</span> All rights reserved.</p>
+      </div>
+      <div class="footer-right">
+        <a href="/login" class="admin-login-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <span>Admin Portal Login</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <script src="/js/portfolio.js"></script>
+</body>
+</html>

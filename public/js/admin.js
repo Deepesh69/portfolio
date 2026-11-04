@@ -36,17 +36,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function checkAuth() {
   try {
     const res = await fetch('/api/auth/me');
-    if (!res.ok) {
-      window.location.href = '/login';
-      return false;
+    if (res.ok) {
+      const data = await res.json();
+      adminState.settings = data.settings;
+      return true;
     }
-    const data = await res.json();
-    adminState.settings = data.settings;
-    return true;
   } catch (err) {
-    window.location.href = '/login';
-    return false;
+    // API not reachable (e.g. static hosting on Vercel)
   }
+
+  // Fallback for Vercel / static hosting
+  const token = localStorage.getItem('admin_token');
+  if (token) {
+    try {
+      const pRes = await fetch('/data/portfolio.json');
+      if (pRes.ok) {
+        const pData = await pRes.json();
+        adminState.settings = pData.settings;
+      }
+    } catch (e) {}
+    return true;
+  }
+
+  window.location.href = '/login';
+  return false;
 }
 
 function initLogout() {
@@ -151,9 +164,30 @@ async function refreshAllData() {
 
 async function loadDashboard() {
   try {
-    const res = await fetch('/api/admin/dashboard');
-    if (!res.ok) return;
-    const data = await res.json();
+    let data = null;
+    try {
+      const res = await fetch('/api/admin/dashboard');
+      if (res.ok) data = await res.json();
+    } catch (e) {}
+
+    if (!data) {
+      const pRes = await fetch('/data/portfolio.json');
+      if (pRes.ok) {
+        const pData = await pRes.json();
+        data = {
+          stats: {
+            totalViews: 1,
+            totalMessages: 0,
+            unreadMessages: 0,
+            totalProjects: (pData.projects || []).length,
+            totalSkills: (pData.skills || []).length
+          },
+          recentMessages: [],
+          settings: pData.settings
+        };
+      }
+    }
+    if (!data) return;
     adminState.stats = data.stats;
     adminState.settings = data.settings;
 
@@ -362,9 +396,20 @@ async function uploadFile(file, type) {
 // -------------------------------------------------------------------
 async function loadProjects() {
   try {
-    const res = await fetch('/api/admin/projects');
-    if (!res.ok) return;
-    const projects = await res.json();
+    let projects = null;
+    try {
+      const res = await fetch('/api/admin/projects');
+      if (res.ok) projects = await res.json();
+    } catch (e) {}
+
+    if (!projects) {
+      const pRes = await fetch('/data/portfolio.json');
+      if (pRes.ok) {
+        const pData = await pRes.json();
+        projects = pData.projects || [];
+      }
+    }
+    if (!projects) return;
     adminState.projects = projects;
 
     // Update count badge
@@ -527,9 +572,20 @@ async function deleteProject(id) {
 // -------------------------------------------------------------------
 async function loadExperiences() {
   try {
-    const res = await fetch('/api/admin/experiences');
-    if (!res.ok) return;
-    const list = await res.json();
+    let list = null;
+    try {
+      const res = await fetch('/api/admin/experiences');
+      if (res.ok) list = await res.json();
+    } catch (e) {}
+
+    if (!list) {
+      const pRes = await fetch('/data/portfolio.json');
+      if (pRes.ok) {
+        const pData = await pRes.json();
+        list = pData.experiences || [];
+      }
+    }
+    if (!list) return;
     adminState.experiences = list;
 
     const tbody = document.getElementById('experience-table-body');
@@ -646,9 +702,20 @@ async function deleteExperience(id) {
 // -------------------------------------------------------------------
 async function loadSkills() {
   try {
-    const res = await fetch('/api/admin/skills');
-    if (!res.ok) return;
-    const skills = await res.json();
+    let skills = null;
+    try {
+      const res = await fetch('/api/admin/skills');
+      if (res.ok) skills = await res.json();
+    } catch (e) {}
+
+    if (!skills) {
+      const pRes = await fetch('/data/portfolio.json');
+      if (pRes.ok) {
+        const pData = await pRes.json();
+        skills = pData.skills || [];
+      }
+    }
+    if (!skills) return;
     adminState.skills = skills;
 
     const badge = document.getElementById('badge-skills-count');

@@ -104,7 +104,9 @@ function requireAuth(req, res) {
 // Create HTTP server
 const server = http.createServer(async (req, res) => {
   const parsedUrl = url.parse(req.url, true);
-  const pathname = parsedUrl.pathname;
+  const rawPath = parsedUrl.pathname || '/';
+  // Normalize trailing slashes (e.g. '/admin/' -> '/admin')
+  const pathname = (rawPath.length > 1 && rawPath.endsWith('/')) ? rawPath.slice(0, -1) : rawPath;
   const method = req.method.toUpperCase();
 
   // CORS headers if needed
@@ -481,29 +483,39 @@ const server = http.createServer(async (req, res) => {
       const relativePath = pathname.substring('/uploads/'.length);
       const safePath = path.normalize(relativePath).replace(/^(\.\.[\/\\])+/, '');
       const fullPath = path.join(UPLOADS_DIR, safePath);
-      return serveStaticFile(req, res, fullPath);
+      if (fs.existsSync(fullPath)) {
+        return serveStaticFile(req, res, fullPath);
+      }
+      const pubPath = path.join(PUBLIC_DIR, 'uploads', safePath);
+      if (fs.existsSync(pubPath)) {
+        return serveStaticFile(req, res, pubPath);
+      }
     }
 
     // 2. HTML Page routes
-    if (pathname === '/' || pathname === '/index.html') {
+    if (pathname === '' || pathname === '/' || pathname === '/index' || pathname === '/index.html') {
       return serveStaticFile(req, res, path.join(PUBLIC_DIR, 'index.html'));
     }
-    if (pathname === '/admin' || pathname === '/admin.html') {
+    if (pathname === '/admin' || pathname === '/admin.html' || pathname.startsWith('/admin')) {
       return serveStaticFile(req, res, path.join(PUBLIC_DIR, 'admin.html'));
     }
-    if (pathname === '/login' || pathname === '/login.html') {
+    if (pathname === '/login' || pathname === '/login.html' || pathname.startsWith('/login')) {
       return serveStaticFile(req, res, path.join(PUBLIC_DIR, 'login.html'));
     }
 
-    // 3. Static assets (/css/..., /js/..., /assets/...)
+    // 3. Static assets (/css/..., /js/..., /data/..., /assets/...)
     const safeRel = path.normalize(pathname).replace(/^(\.\.[\/\\])+/, '');
     const candidatePath = path.join(PUBLIC_DIR, safeRel);
     if (fs.existsSync(candidatePath) && fs.statSync(candidatePath).isFile()) {
       return serveStaticFile(req, res, candidatePath);
     }
+    const rootPath = path.join(__dirname, safeRel);
+    if (fs.existsSync(rootPath) && fs.statSync(rootPath).isFile()) {
+      return serveStaticFile(req, res, rootPath);
+    }
 
-    // Fallback to index.html for unknown routes or 404
-    sendJson(res, 404, { error: 'Route not found' });
+    // Fallback: serve index.html
+    return serveStaticFile(req, res, path.join(PUBLIC_DIR, 'index.html'));
 
   } catch (err) {
     console.error('Server error:', err);
