@@ -225,7 +225,8 @@ const server = http.createServer(async (req, res) => {
     if (method === 'GET' && pathname === '/api/auth/me') {
       const session = requireAuth(req, res);
       if (!session) return;
-      return sendJson(res, 200, { authenticated: true, settings: db.getSettings() });
+      const token = auth.extractToken(req);
+      return sendJson(res, 200, { authenticated: true, token, settings: db.getSettings() });
     }
 
     // -------------------------------------------------------------
@@ -543,12 +544,16 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, '0.0.0.0', () => {
-  console.log(`====================================================`);
-  console.log(`🚀 Portfolio & Admin CMS Server running!`);
-  console.log(`🌐 Public Portfolio:  http://localhost:${PORT}/`);
-  console.log(`🔒 Admin Dashboard:  http://localhost:${PORT}/admin`);
-  console.log(`🔑 Admin Login:      http://localhost:${PORT}/login`);
-  console.log(`Default Credentials: Username: admin | Password: admin123`);
-  console.log(`====================================================`);
-});
+if (require.main === module) {
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`====================================================`);
+    console.log(`🚀 Portfolio & Admin CMS Server running!`);
+    console.log(`🌐 Public Portfolio:  http://localhost:${PORT}/`);
+    console.log(`🔒 Admin Dashboard:  http://localhost:${PORT}/admin`);
+    console.log(`🔑 Admin Login:      http://localhost:${PORT}/login`);
+    console.log(`Default Credentials: Username: admin | Password: admin123`);
+    console.log(`====================================================`);
+  });
+}
+
+module.exports = server;

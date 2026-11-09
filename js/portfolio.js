@@ -133,7 +133,14 @@ function renderSettings(s) {
   if (heroHeadline && s.headline) heroHeadline.textContent = s.headline;
 
   const heroAvailability = document.getElementById('hero-availability');
-  if (heroAvailability && s.availability) heroAvailability.textContent = s.availability;
+  if (heroAvailability && s.availability && heroAvailability.textContent !== s.availability) {
+    heroAvailability.textContent = s.availability;
+  }
+
+  const aboutAvail = document.getElementById('about-availability');
+  if (aboutAvail && s.availability && aboutAvail.textContent !== s.availability) {
+    aboutAvail.textContent = s.availability;
+  }
 
   const aboutBio = document.getElementById('about-bio');
   if (aboutBio && s.bio) aboutBio.textContent = s.bio;
@@ -141,9 +148,9 @@ function renderSettings(s) {
   // Avatar
   const avatarUrl = s.avatarUrl || '/uploads/avatar.jpg';
   const navAvatar = document.getElementById('nav-avatar');
-  if (navAvatar) navAvatar.src = avatarUrl;
+  if (navAvatar && navAvatar.getAttribute('src') !== avatarUrl) navAvatar.src = avatarUrl;
   const heroAvatar = document.getElementById('hero-avatar');
-  if (heroAvatar) heroAvatar.src = avatarUrl;
+  if (heroAvatar && heroAvatar.getAttribute('src') !== avatarUrl) heroAvatar.src = avatarUrl;
 
   // Resume Download Links
   const resumeUrl = s.resumeUrl || '/uploads/resume.pdf';
@@ -185,10 +192,6 @@ function renderSettings(s) {
     const cardPhone = document.getElementById('contact-phone-card');
     if (cardPhone) cardPhone.href = `tel:${s.phone.replace(/\s+/g, '')}`;
   }
-
-  // Availability in About
-  const aboutAvail = document.getElementById('about-availability');
-  if (aboutAvail && s.availability) aboutAvail.textContent = s.availability;
 
   // LinkedIn
   if (s.linkedinUrl) {

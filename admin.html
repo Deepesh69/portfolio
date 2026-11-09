@@ -10,6 +10,62 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/admin.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚙️</text></svg>">
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('portfolio_settings');
+        if (saved) {
+          var s = JSON.parse(saved);
+          var css = '';
+          if (s.avatarUrl) {
+            css += '#sidebar-avatar, #avatar-preview-img { opacity: 0; } ';
+          }
+          if (css) {
+            var st = document.createElement('style');
+            st.id = 'anti-flicker-admin-css';
+            st.textContent = css + ' #sidebar-avatar, #avatar-preview-img { transition: opacity 0.1s ease; }';
+            document.head.appendChild(st);
+          }
+
+          var applyAdminSettings = function() {
+            var sa = document.getElementById('sidebar-avatar');
+            var prev = document.getElementById('avatar-preview-img');
+            var sn = document.getElementById('sidebar-name');
+
+            if (s.avatarUrl) {
+              if (sa && sa.src !== s.avatarUrl) sa.src = s.avatarUrl;
+              if (prev && prev.src !== s.avatarUrl) prev.src = s.avatarUrl;
+            }
+            if (s.fullName && sn && sn.textContent !== s.fullName) {
+              sn.textContent = s.fullName;
+            }
+            var stEl = document.getElementById('anti-flicker-admin-css');
+            if (stEl) {
+              stEl.textContent = '#sidebar-avatar, #avatar-preview-img { opacity: 1 !important; }';
+            }
+          };
+
+          if (document.readyState === 'loading') {
+            var obs = new MutationObserver(function() {
+              var sa = document.getElementById('sidebar-avatar');
+              var prev = document.getElementById('avatar-preview-img');
+              if (sa && prev) {
+                obs.disconnect();
+                applyAdminSettings();
+              }
+            });
+            obs.observe(document.documentElement, { childList: true, subtree: true });
+            document.addEventListener('DOMContentLoaded', function() {
+              obs.disconnect();
+              applyAdminSettings();
+            });
+          } else {
+            applyAdminSettings();
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body class="dark-theme admin-body">
 

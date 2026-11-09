@@ -10,6 +10,67 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💼</text></svg>">
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('portfolio_settings');
+        if (saved) {
+          var s = JSON.parse(saved);
+          var css = '';
+          if (s.avatarUrl) {
+            css += '#hero-avatar, #nav-avatar { opacity: 0; } ';
+          }
+          if (s.availability) {
+            css += '#hero-availability, #about-availability { opacity: 0; } ';
+          }
+          if (css) {
+            var st = document.createElement('style');
+            st.id = 'anti-flicker-css';
+            st.textContent = css + ' #hero-avatar, #nav-avatar, #hero-availability, #about-availability { transition: opacity 0.1s ease; }';
+            document.head.appendChild(st);
+          }
+
+          var applySettings = function() {
+            var h = document.getElementById('hero-avatar');
+            var n = document.getElementById('nav-avatar');
+            var ha = document.getElementById('hero-availability');
+            var aa = document.getElementById('about-availability');
+
+            if (s.avatarUrl) {
+              if (h && h.src !== s.avatarUrl) h.src = s.avatarUrl;
+              if (n && n.src !== s.avatarUrl) n.src = s.avatarUrl;
+            }
+            if (s.availability) {
+              if (ha && ha.textContent !== s.availability) ha.textContent = s.availability;
+              if (aa && aa.textContent !== s.availability) aa.textContent = s.availability;
+            }
+            var stEl = document.getElementById('anti-flicker-css');
+            if (stEl) {
+              stEl.textContent = '#hero-avatar, #nav-avatar, #hero-availability, #about-availability { opacity: 1 !important; }';
+            }
+          };
+
+          if (document.readyState === 'loading') {
+            var obs = new MutationObserver(function() {
+              var h = document.getElementById('hero-avatar');
+              var ha = document.getElementById('hero-availability');
+              if (h && ha) {
+                obs.disconnect();
+                applySettings();
+              }
+            });
+            obs.observe(document.documentElement, { childList: true, subtree: true });
+            document.addEventListener('DOMContentLoaded', function() {
+              obs.disconnect();
+              applySettings();
+            });
+          } else {
+            applySettings();
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body class="dark-theme">
 
@@ -65,7 +126,7 @@
         <div class="hero-content">
           <div class="badge-wrapper">
             <span class="status-indicator"></span>
-            <span class="badge-text" id="hero-availability">Available for part-time work (up to 20 hrs/week)</span>
+            <span class="badge-text" id="hero-availability">Available for part-time work (up to 20 hours per week) during term time</span>
           </div>
 
           <h1 class="hero-title">
@@ -224,7 +285,7 @@
             <div class="info-card">
               <span class="info-card-icon">💼</span>
               <span class="info-card-label">Work Status</span>
-              <span class="info-card-val" id="about-availability">Available for part-time (up to 20h/wk)</span>
+              <span class="info-card-val" id="about-availability">Available for part-time work (up to 20 hours per week) during term time</span>
             </div>
           </div>
         </div>

@@ -349,7 +349,7 @@ module.exports = {
         return db.prepare('SELECT * FROM projects WHERE id = ?').get(id);
       } catch (e) {}
     }
-    return (memoryStore.projects || []).find(p => p.id === id);
+    return (memoryStore.projects || []).find(p => p.id == id);
   },
   createProject: (data) => {
     const p = {
@@ -380,7 +380,7 @@ module.exports = {
     return p;
   },
   updateProject: (id, data) => {
-    let p = (memoryStore.projects || []).find(x => x.id === id);
+    let p = (memoryStore.projects || []).find(x => x.id == id);
     if (p) Object.assign(p, data);
 
     if (useSqlite && db) {
@@ -398,7 +398,7 @@ module.exports = {
     return p || data;
   },
   deleteProject: (id) => {
-    memoryStore.projects = (memoryStore.projects || []).filter(x => x.id !== id);
+    memoryStore.projects = (memoryStore.projects || []).filter(x => x.id != id);
     if (useSqlite && db) {
       try { db.prepare('DELETE FROM projects WHERE id = ?').run(id); } catch (e) {}
     }
@@ -433,7 +433,7 @@ module.exports = {
     return s;
   },
   updateSkill: (id, data) => {
-    let s = (memoryStore.skills || []).find(x => x.id === id);
+    let s = (memoryStore.skills || []).find(x => x.id == id);
     if (s) Object.assign(s, data);
     if (useSqlite && db) {
       try {
@@ -445,7 +445,7 @@ module.exports = {
     return s || data;
   },
   deleteSkill: (id) => {
-    memoryStore.skills = (memoryStore.skills || []).filter(x => x.id !== id);
+    memoryStore.skills = (memoryStore.skills || []).filter(x => x.id != id);
     if (useSqlite && db) {
       try { db.prepare('DELETE FROM skills WHERE id = ?').run(id); } catch (e) {}
     }
@@ -487,7 +487,7 @@ module.exports = {
     return exp;
   },
   updateExperience: (id, data) => {
-    let exp = (memoryStore.experiences || []).find(x => x.id === id);
+    let exp = (memoryStore.experiences || []).find(x => x.id == id);
     if (exp) Object.assign(exp, data);
     if (useSqlite && db) {
       try {
@@ -503,7 +503,7 @@ module.exports = {
     return exp || data;
   },
   deleteExperience: (id) => {
-    memoryStore.experiences = (memoryStore.experiences || []).filter(x => x.id !== id);
+    memoryStore.experiences = (memoryStore.experiences || []).filter(x => x.id != id);
     if (useSqlite && db) {
       try { db.prepare('DELETE FROM experiences WHERE id = ?').run(id); } catch (e) {}
     }
@@ -519,7 +519,7 @@ module.exports = {
     return memoryStore.messages || [];
   },
   getMessageById: (id) => {
-    return (memoryStore.messages || []).find(m => m.id === id);
+    return (memoryStore.messages || []).find(m => m.id == id);
   },
   createMessage: (data) => {
     const msg = {
@@ -542,14 +542,14 @@ module.exports = {
     return msg;
   },
   markMessageRead: (id, isRead = 1) => {
-    const m = (memoryStore.messages || []).find(x => x.id === id);
+    const m = (memoryStore.messages || []).find(x => x.id == id);
     if (m) m.isRead = isRead ? 1 : 0;
     if (useSqlite && db) {
       try { db.prepare('UPDATE messages SET isRead = ? WHERE id = ?').run(isRead ? 1 : 0, id); } catch (e) {}
     }
   },
   deleteMessage: (id) => {
-    memoryStore.messages = (memoryStore.messages || []).filter(x => x.id !== id);
+    memoryStore.messages = (memoryStore.messages || []).filter(x => x.id != id);
     if (useSqlite && db) {
       try { db.prepare('DELETE FROM messages WHERE id = ?').run(id); } catch (e) {}
     }

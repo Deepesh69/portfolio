@@ -11,14 +11,14 @@
     "phone": "+44 7918982511",
     "location": "Glasgow, Scotland, UK",
     "availability": "Available for part-time work (up to 20 hours per week) during term time",
-    "linkedinUrl": "https://linkedin.com/in/dipesh-bista",
+    "linkedinUrl": "https://linkedin.com/in/test",
     "githubUrl": "https://github.com",
     "websiteUrl": "",
     "accentColor": "#4f46e5",
     "siteTitle": "Dipesh Bista | IT Specialist & MSc Candidate",
     "metaDescription": "Professional portfolio of Dipesh Bista - MSc in IT student, Technical Support Specialist, and IT Solutions Professional based in Glasgow.",
     "adminUsername": "admin",
-    "updated_at": "2026-11-04 02:36:55"
+    "updated_at": "2026-11-08 23:53:28"
   },
   "skills": [
     {
@@ -111,6 +111,17 @@
     }
   ],
   "experiences": [
+    {
+      "id": 6,
+      "type": "work",
+      "role": "Test Engineer",
+      "organization": "Test Corp",
+      "location": "",
+      "startDate": "2024",
+      "endDate": "2025",
+      "description": "",
+      "displayOrder": 0
+    },
     {
       "id": 1,
       "type": "education",
