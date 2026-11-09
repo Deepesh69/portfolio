@@ -291,24 +291,29 @@ async function handleClientFallback(url, options) {
 // 1. AUTH CHECK & LOGOUT
 // -------------------------------------------------------------------
 async function checkAuth() {
+  const token = localStorage.getItem('admin_token');
+
   try {
-    const res = await fetch('/api/auth/me');
+    const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+    const res = await fetch('/api/auth/me', { headers, credentials: 'include' });
     if (res.ok) {
-      const data = await res.json();
-      adminState.settings = data.settings;
-      if (data.token) {
-        localStorage.setItem('admin_token', data.token);
-      } else if (!localStorage.getItem('admin_token')) {
-        localStorage.setItem('admin_token', 'admin_session_' + Date.now());
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        const data = await res.json();
+        if (data && data.authenticated) {
+          adminState.settings = data.settings;
+          if (data.token) {
+            localStorage.setItem('admin_token', data.token);
+          }
+          return true;
+        }
       }
-      return true;
     }
   } catch (err) {
     // API not reachable (e.g. static hosting on Vercel)
   }
 
   // Fallback for Vercel / static hosting
-  const token = localStorage.getItem('admin_token');
   if (token) {
     try {
       const pRes = await fetch('/data/portfolio.json');
@@ -321,7 +326,7 @@ async function checkAuth() {
     return true;
   }
 
-  window.location.href = '/login';
+  window.location.replace('/login');
   return false;
 }
 
@@ -331,7 +336,7 @@ async function performLogout(redirectTo = '/login') {
   } catch (e) {}
   localStorage.removeItem('admin_token');
   document.cookie = 'session=; Path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; Max-Age=0; SameSite=Lax';
-  window.location.href = redirectTo;
+  window.location.replace(redirectTo);
 }
 
 function initLogout() {

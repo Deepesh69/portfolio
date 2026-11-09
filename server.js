@@ -103,7 +103,12 @@ function requireAuth(req, res) {
 
 // Create HTTP server
 const server = http.createServer(async (req, res) => {
-  const parsedUrl = url.parse(req.url, true);
+  let reqUrl = req.url || '/';
+  const xfwd = req.headers['x-forwarded-uri'] || req.headers['x-matched-path'];
+  if (xfwd && (reqUrl.startsWith('/api/index.js') || reqUrl === '/api' || reqUrl === '/api/')) {
+    reqUrl = xfwd;
+  }
+  const parsedUrl = url.parse(reqUrl, true);
   const rawPath = parsedUrl.pathname || '/';
   // Normalize trailing slashes (e.g. '/admin/' -> '/admin')
   const pathname = (rawPath.length > 1 && rawPath.endsWith('/')) ? rawPath.slice(0, -1) : rawPath;
@@ -498,6 +503,11 @@ const server = http.createServer(async (req, res) => {
     // -------------------------------------------------------------
     // STATIC FILE SERVING
     // -------------------------------------------------------------
+
+    // Unmatched API routes -> 404 JSON (never fallback to index.html)
+    if (pathname.startsWith('/api')) {
+      return sendJson(res, 404, { error: 'Route not found: ' + pathname });
+    }
 
     // 1. Uploads directory (/uploads/...)
     if (pathname.startsWith('/uploads/')) {
